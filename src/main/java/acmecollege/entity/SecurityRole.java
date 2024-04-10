@@ -14,6 +14,10 @@
  */
 package acmecollege.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Objects;
@@ -25,14 +29,27 @@ import java.util.Set;
  * Role class used for (JSR-375) Java EE Security authorization/authentication
  */
 //TODO SR01 - Make this into JPA entity and add all necessary annotations
+@Entity
+@Access(AccessType.FIELD)
+@Table(name = "security_role")
+@NamedQuery(name = SecurityRole.ROLE_BY_NAME_QUERY, query = "SELECT r from SecurityRole r WHERE r.roleName = :param1")
 public class SecurityRole implements Serializable {
     /** Explicit set serialVersionUID */
     private static final long serialVersionUID = 1L;
 
+    public static final String ROLE_BY_NAME_QUERY = "roleByName";
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "role_id")
     protected int id;
-    
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @Basic(optional = false)
+    @Column(name = "name", nullable = false)
     protected String roleName;
-    
+
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.LAZY, mappedBy = "roles")
     protected Set<SecurityUser> users = new HashSet<SecurityUser>();
 
     public SecurityRole() {
@@ -54,6 +71,7 @@ public class SecurityRole implements Serializable {
         this.roleName = roleName;
     }
 
+    @JsonIgnore
     public Set<SecurityUser> getUsers() {
         return users;
     }

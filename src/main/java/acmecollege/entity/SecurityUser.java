@@ -14,6 +14,12 @@
  */
 package acmecollege.entity;
 
+
+import acmecollege.rest.serializer.SecurityRoleSerializer;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.security.Principal;
 import java.util.HashSet;
@@ -27,18 +33,37 @@ import java.util.Set;
  */
 
 //TODO - Make this into JPA entity and add all the necessary annotations
+@Entity
+@Access(AccessType.FIELD)
+@Table(name = "security_user")
+@NamedQuery(name = SecurityUser.SECURITY_USER_BY_NAME_QUERY, query = "SELECT u FROM SecurityUser u LEFT JOIN FETCH u.student WHERE u.username = :param1")
 public class SecurityUser implements Serializable, Principal {
     /** Explicit set serialVersionUID */
     private static final long serialVersionUID = 1L;
 
+    public static final String SECURITY_USER_BY_NAME_QUERY = "SecurityUser.userByName";
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     protected int id;
-    
+
+    @Basic(optional = false)
+    @Column(name = "username")
     protected String username;
-    
+
+    @Basic(optional = false)
+    @Column(name = "password_hash")
     protected String pwHash;
-    
+
+    @OneToOne(optional = true)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     protected Student student;
-    
+
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @JoinTable(name = "user_has_roles",
+        joinColumns = @JoinColumn(referencedColumnName = "id", name = "user_id"),
+        inverseJoinColumns = @JoinColumn(referencedColumnName = "role_id", name = "role_id"))
     protected Set<SecurityRole> roles = new HashSet<SecurityRole>();
 
     public SecurityUser() {
@@ -70,6 +95,9 @@ public class SecurityUser implements Serializable, Principal {
     }
 
     // TODO SU01 - Setup custom JSON serializer
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonSerialize(using = SecurityRoleSerializer.class)
+
     public Set<SecurityRole> getRoles() {
         return roles;
     }

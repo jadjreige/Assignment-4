@@ -53,7 +53,6 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 @NamedQuery(name = StudentClub.IS_DUPLICATE_QUERY_NAME, query = "SELECT count(sc) FROM StudentClub sc where sc.name = :param1")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(columnDefinition = "bit(1)", name = "academic", discriminatorType = DiscriminatorType.INTEGER)
-//TODO SC06 - Add in JSON annotations to indicate different sub-classes of StudentClub
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonTypeInfo(
 use = JsonTypeInfo.Id.NAME,

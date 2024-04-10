@@ -20,6 +20,16 @@ import javax.persistence.Embedded;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.AttributeOverride;
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @SuppressWarnings("unused")
 
@@ -28,13 +38,25 @@ import javax.persistence.OneToOne;
  */
 //TODO CM01 - Add the missing annotations.
 //TODO CM02 - Do we need a mapped super class?  If so, which one?
+@Entity
+@Table(name = "club_membership")
+@NamedQuery(name = ClubMembership.FIND_ALL, query = "SELECT cm FROM ClubMembership cm left join fetch cm.club left join fetch cm.card")
+@NamedQuery( name = ClubMembership.FIND_BY_ID, query = "SELECT cm FROM ClubMembership cm left join fetch cm.club left join fetch cm.card where cm.id = :param1")
+@AttributeOverride(name = "id", column = @Column(name = "membership_id"))
 public class ClubMembership extends PojoBase implements Serializable {
 	private static final long serialVersionUID = 1L;
+	
+	public static final String FIND_ALL = "ClubMembership.findAll";
+    public static final String FIND_BY_ID = "ClubMembership.findbyId";
 
 	// TODO CM03 - Add annotations for M:1.  Changes to this class should cascade to StudentClub.
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "club_id", referencedColumnName = "club_id")
 	private StudentClub club;
 
 	// TODO CM04 - Add annotations for 1:1.  Changes to this class should not cascade to MembershipCard.
+	@OneToOne(mappedBy = "clubMembership")
+	@JsonIgnore
 	private MembershipCard card;
 
 	@Embedded

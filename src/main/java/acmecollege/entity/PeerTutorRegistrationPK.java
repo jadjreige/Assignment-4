@@ -29,6 +29,7 @@ import javax.persistence.Embeddable;
  */
 //TODO PTRPK01 - What annotation is used to define an object which can be embedded in other entities?
 //Hint - @Access is used to establish where the annotation for JPA will be placed, field or properties. 
+@Embeddable
 @Access(AccessType.FIELD)
 public class PeerTutorRegistrationPK implements Serializable {
 	// Default serial version id, required for serializable classes.

@@ -4,13 +4,13 @@ import javax.annotation.Generated;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="Dali", date="2024-01-01T21:35:57.442-0500")
+@Generated(value="Dali", date="2024-04-09T21:12:39.346-0400")
 @StaticMetamodel(PeerTutorRegistration.class)
-public class PeerTutorRegistration_ {
+public class PeerTutorRegistration_ extends PojoBaseCompositeKey_ {
 	public static volatile SingularAttribute<PeerTutorRegistration, PeerTutorRegistrationPK> id;
 	public static volatile SingularAttribute<PeerTutorRegistration, Student> student;
 	public static volatile SingularAttribute<PeerTutorRegistration, Course> course;
+	public static volatile SingularAttribute<PeerTutorRegistration, PeerTutor> peerTutor;
 	public static volatile SingularAttribute<PeerTutorRegistration, Integer> numericGrade;
 	public static volatile SingularAttribute<PeerTutorRegistration, String> letterGrade;
-	public static volatile SingularAttribute<PeerTutorRegistration, PeerTutor> peerTutor;
 }

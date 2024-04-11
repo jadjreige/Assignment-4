@@ -52,17 +52,9 @@ import javax.persistence.criteria.Root;
 import javax.security.enterprise.identitystore.Pbkdf2PasswordHash;
 import javax.transaction.Transactional;
 
+import acmecollege.entity.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import acmecollege.entity.ClubMembership;
-import acmecollege.entity.MembershipCard;
-import acmecollege.entity.PeerTutor;
-import acmecollege.entity.PeerTutorRegistration;
-import acmecollege.entity.SecurityRole;
-import acmecollege.entity.SecurityUser;
-import acmecollege.entity.Student;
-import acmecollege.entity.StudentClub;
 
 @SuppressWarnings("unused")
 
@@ -144,6 +136,27 @@ public class ACMECollegeService implements Serializable {
         else return null;  // Student doesn't exists
     }
 
+    @Transactional
+    public PeerTutorRegistration setCourseForStudent(int studentId, Course newCourse) {
+        Student studentToBeUpdated = em.find(Student.class, studentId);
+        if (studentToBeUpdated != null) { // Student exists
+            Course course = em.find(Course.class, newCourse.getId());
+            if (course != null) {
+                PeerTutorRegistration ptr = new PeerTutorRegistration();
+                ptr.setStudent(studentToBeUpdated);
+                ptr.setCourse(course);
+                em.persist(ptr);
+                Set<PeerTutorRegistration> ptrs = studentToBeUpdated.getPeerTutorRegistrations(); 
+                ptrs.add(ptr);
+                em.merge(studentToBeUpdated);
+                studentToBeUpdated.setPeerTutorRegistrations(ptrs);
+                em.merge(course);
+                return ptr;
+            } else return null; // Course doesn't exist
+        }
+        else return null;  // Student doesn't exists
+    }
+
     /**
      * To update a student
      * 
@@ -168,7 +181,7 @@ public class ACMECollegeService implements Serializable {
      * @param id - student id to delete
      */
     @Transactional
-    public void deleteStudentById(int id) {
+    public Student deleteStudentById(int id) {
         Student student = getStudentById(id);
         if (student != null) {
             em.refresh(student);
@@ -182,7 +195,9 @@ public class ACMECollegeService implements Serializable {
             SecurityUser sUser = findUser.getSingleResult();
             em.remove(sUser);
             em.remove(student);
+            return student;
         }
+        return null;
     }
     
     public List<StudentClub> getAllStudentClubs() {
@@ -283,5 +298,154 @@ public class ACMECollegeService implements Serializable {
         }
         return clubMembershipToBeUpdated;
     }
+
+    public List<Course> getAllCourses() {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Course> cq = cb.createQuery(Course.class);
+        cq.select(cq.from(Course.class));
+        return em.createQuery(cq).getResultList();
+    }
+
+    public Course getCourseById(int id) { return em.find(Course.class, id); }
+
+    @Transactional
+    public Course persistCourse(Course newCourse) {
+        em.persist(newCourse);
+        return newCourse;
+    }
+
+    @Transactional
+    public Course updateCourseById(int id, Course courseWithUpdates) {
+        Course courseToBeUpdated = getCourseById(id);
+        if (courseToBeUpdated != null) {
+            em.refresh(courseToBeUpdated);
+            em.merge(courseWithUpdates);
+            em.flush();
+        }
+        return courseToBeUpdated;
+    }
+
+    @Transactional
+    public Course deleteCourse(int id) {
+        Course course = getCourseById(id);
+        if (course != null) {
+            Set<PeerTutorRegistration> ptrs = course.getPeerTutorRegistrations();
+            List<PeerTutorRegistration> list = new LinkedList<>();
+            ptrs.forEach(list::add);
+            list.forEach(ptr -> {
+                if (ptr.getPeerTutor() != null) {
+                    PeerTutor pt = getPeerTutorById(ptr.getPeerTutor().getId());
+                    Set<PeerTutorRegistration> peerTutorPtrs = pt.getPeerTutorRegistrations();
+                    peerTutorPtrs.remove(ptr);
+                }
+
+                if (ptr.getStudent() != null) {
+                    Student student = getStudentById(ptr.getStudent().getId());
+                    Set<PeerTutorRegistration> studentPtrs = student.getPeerTutorRegistrations();
+                    studentPtrs.remove(ptr);
+                }
+                ptr.setPeerTutor(null);
+                ptr.setStudent(null);
+                em.merge(ptr);
+                em.remove(ptr);
+            });
+            em.remove(course);
+            return course;
+        }
+        return null;
+    }
+
+    public List<PeerTutor> getAllPeerTutors() {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<PeerTutor> cq = cb.createQuery(PeerTutor.class);
+        cq.select(cq.from(PeerTutor.class));
+        return em.createQuery(cq).getResultList();
+    }
+
+    public PeerTutor getPeerTutorById(int id) { return em.find(PeerTutor.class, id); }
+
+    @Transactional
+    public PeerTutor persistPeerTutor(PeerTutor newPeerTutor) {
+        em.persist(newPeerTutor);
+        return newPeerTutor;
+    }
     
+    @Transactional
+    public PeerTutor updatePeerTutorById(int id, PeerTutor peerTutorWithUpdates) {
+        PeerTutor peerTutorToBeUpdated = getPeerTutorById(id);
+        if (peerTutorToBeUpdated != null) {
+            em.refresh(peerTutorToBeUpdated);
+            em.merge(peerTutorWithUpdates);
+            em.flush();
+        }
+        return peerTutorToBeUpdated;
+    }
+    
+    @Transactional
+    public PeerTutor deletePeerTutor(int id) {
+        PeerTutor peerTutor = getPeerTutorById(id);
+        if (peerTutor != null) {
+            Set<PeerTutorRegistration> ptrs = peerTutor.getPeerTutorRegistrations();
+            List<PeerTutorRegistration> list = new LinkedList<>();
+            ptrs.forEach(list::add);
+            list.forEach(ptr -> {
+                if (ptr.getPeerTutor() != null) {
+                    PeerTutor pt = getPeerTutorById(ptr.getPeerTutor().getId());
+                    Set<PeerTutorRegistration> peerTutorPtrs = pt.getPeerTutorRegistrations();
+                    peerTutorPtrs.remove(ptr);
+                }
+                ptr.setPeerTutor(null);
+                ptr.setStudent(null);
+                em.merge(ptr);
+            });
+            em.remove(peerTutor);
+            return peerTutor;
+        }
+        return null;
+    }
+
+    public List<PeerTutorRegistration> getPeerTutorRegistrations() {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<PeerTutorRegistration> cq = cb.createQuery(PeerTutorRegistration.class);
+        cq.select(cq.from(PeerTutorRegistration.class));
+        return em.createQuery(cq).getResultList();
+    }
+
+    public PeerTutorRegistration getPeerTutorRegistrationById(int id) {
+        TypedQuery<PeerTutorRegistration> allPtrQuery = em.createNamedQuery("PeerTutorRegistration.findById", PeerTutorRegistration.class);
+        allPtrQuery.setParameter(PARAM1, id);
+        return allPtrQuery.getSingleResult();
+    }
+
+    @Transactional
+    public PeerTutorRegistration persistPeerTutorRegistration(PeerTutorRegistration newPeerTutorRegistration) {
+        em.persist(newPeerTutorRegistration);
+        return newPeerTutorRegistration;
+    }
+
+    @Transactional
+    public PeerTutorRegistration updatePeerTutorRegistration(int id, PeerTutorRegistration peerTutorRegistrationWithUpdates) {
+        PeerTutorRegistration peerTutorRegistrationToBeUpdated = getPeerTutorRegistrationById(id);
+        if (peerTutorRegistrationToBeUpdated != null) {
+            em.refresh(peerTutorRegistrationToBeUpdated);
+            em.merge(peerTutorRegistrationWithUpdates);
+            em.flush();
+        }
+        return peerTutorRegistrationToBeUpdated;
+    }
+
+    @Transactional
+    public PeerTutorRegistration deletePeerTutorRegistration(int id) {
+        PeerTutorRegistration ptr = getPeerTutorRegistrationById(id);
+        if (ptr != null) {
+            ptr.setPeerTutor(null);
+            ptr.setStudent(null);
+            em.merge(ptr);
+            em.remove(ptr);
+            return ptr;
+        }
+        ;
+        return null;
+    }
 }
+

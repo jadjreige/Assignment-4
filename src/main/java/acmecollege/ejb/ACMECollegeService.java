@@ -320,6 +320,7 @@ public class ACMECollegeService implements Serializable {
         em.refresh(membershipCard);
         em.remove(membershipCard);
         return membershipCard;
+    }
 
     public List<Course> getAllCourses() {
         CriteriaBuilder cb = em.getCriteriaBuilder();

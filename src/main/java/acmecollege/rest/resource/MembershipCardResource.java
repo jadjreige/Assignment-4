@@ -50,7 +50,22 @@ public class MembershipCardResource {
         return response;
     }
 
+    @POST
+    @RolesAllowed({ADMIN_ROLE})
+    public Response addMembershipCard(MembershipCard card) {
+        Response response = null;
+        MembershipCard membershipCard = service.addMembershipCard(card);
+        response = Response.ok(membershipCard).build();
+        return response;
+    }
 
-
-
+    @DELETE
+    @RolesAllowed({ADMIN_ROLE})
+    @Path(RESOURCE_PATH_ID_PATH)
+    public Response deleteMembershipCard(@PathParam(RESOURCE_PATH_ID_ELEMENT) int id) {
+        Response response = null;
+        MembershipCard membershipCard = service.deleteMembershipCard(id);
+        response = Response.ok(membershipCard).build();
+        return response;
+    }
 }

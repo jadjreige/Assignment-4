@@ -71,4 +71,14 @@ public class ClubMembershipResource {
         response = Response.ok(updatedClubMembership).build();
         return response;
     }
+
+    @DELETE
+    @RolesAllowed({ADMIN_ROLE})
+    @Path(RESOURCE_PATH_ID_PATH)
+    public Response deleteClubMembership(@PathParam(RESOURCE_PATH_ID_ELEMENT) int id) {
+        Response response = null;
+        ClubMembership clubMembership = service.deleteClubMembership(id);
+        response = Response.ok(clubMembership).build();
+        return response;
+    }
 }

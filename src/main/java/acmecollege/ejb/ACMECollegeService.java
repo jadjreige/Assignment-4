@@ -34,6 +34,7 @@ import static acmecollege.utility.MyConstants.PU_NAME;
 import static acmecollege.utility.MyConstants.USER_ROLE;
 
 import java.io.Serializable;
+import java.lang.reflect.Member;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -298,6 +299,27 @@ public class ACMECollegeService implements Serializable {
         }
         return clubMembershipToBeUpdated;
     }
+
+    @Transactional
+    public ClubMembership deleteClubMembership(int id) {
+        ClubMembership clubMembership = getById(ClubMembership.class, ClubMembership.FIND_BY_ID, id);
+        em.refresh(clubMembership);
+        em.remove(clubMembership);
+        return clubMembership;
+    }
+
+    @Transactional
+    public MembershipCard addMembershipCard(MembershipCard newCard) {
+        em.persist(newCard);
+        return newCard;
+    }
+
+    @Transactional
+    public MembershipCard deleteMembershipCard(int id) {
+        MembershipCard membershipCard = getById(MembershipCard.class, MembershipCard.ID_CARD_QUERY_NAME, id);
+        em.refresh(membershipCard);
+        em.remove(membershipCard);
+        return membershipCard;
 
     public List<Course> getAllCourses() {
         CriteriaBuilder cb = em.getCriteriaBuilder();

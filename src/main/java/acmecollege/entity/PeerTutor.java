@@ -30,6 +30,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @SuppressWarnings("unused")
 
 /**
@@ -89,6 +91,7 @@ public class PeerTutor extends PojoBase implements Serializable {
 	@OneToMany(cascade=CascadeType.MERGE, fetch = FetchType.LAZY, mappedBy = "peerTutor")
 	// Hint - java.util.Set is used as a collection, however List could have been used as well.
 	// Hint - java.util.Set will be unique and also possibly can provide better get performance with HashCode.
+	@JsonIgnore
 	private Set<PeerTutorRegistration> peerTutorRegistrations = new HashSet<>();
 
 	public PeerTutor() {

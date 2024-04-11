@@ -28,6 +28,7 @@ import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.security.enterprise.SecurityContext;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.ForbiddenException;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -115,5 +116,13 @@ public class StudentResource {
         PeerTutor peerTutor = service.setPeerTutorForStudentCourse(studentId, courseId, newPeerTutor);
         response = Response.ok(peerTutor).build();
         return response;
+    }
+    
+    @DELETE
+    @RolesAllowed({ADMIN_ROLE})
+    @Path(RESOURCE_PATH_ID_PATH)
+    public Response deleteStudentById(@PathParam(RESOURCE_PATH_ID_ELEMENT) int id) {
+    	Student student = service.deleteStudentById(id);
+    	return Response.ok(student).build();
     }
 }

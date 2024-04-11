@@ -40,14 +40,12 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import acmecollege.entity.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.glassfish.soteria.WrappingCallerPrincipal;
 
 import acmecollege.ejb.ACMECollegeService;
-import acmecollege.entity.PeerTutor;
-import acmecollege.entity.SecurityUser;
-import acmecollege.entity.Student;
 
 @Path(STUDENT_RESOURCE_NAME)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -124,5 +122,38 @@ public class StudentResource {
     public Response deleteStudentById(@PathParam(RESOURCE_PATH_ID_ELEMENT) int id) {
     	Student student = service.deleteStudentById(id);
     	return Response.ok(student).build();
+    }
+
+    @PUT
+    @RolesAllowed({ADMIN_ROLE})
+    @Path("/{studentId}/course")
+    public Response addCourseToStudent(@PathParam("studentId") int studentId, Course newCourse) {
+        PeerTutorRegistration ptr = service.setCourseForStudent(studentId, newCourse);
+        return Response.ok(ptr).build();
+    }
+    
+    @GET
+    @RolesAllowed({ADMIN_ROLE, USER_ROLE})
+    @Path("/{studentId}/peertutorregistrations")
+    public Response getStudentPeerTutorRegistrations(@PathParam("studentId") int studentId) {
+    	Response response = null;
+        Student student = null;
+
+        if (sc.isCallerInRole(ADMIN_ROLE)) {
+            student = service.getStudentById(studentId);
+            response = Response.status(student == null ? Status.NOT_FOUND : Status.OK).entity(student.getPeerTutorRegistrations()).build();
+        } else if (sc.isCallerInRole(USER_ROLE)) {
+            WrappingCallerPrincipal wCallerPrincipal = (WrappingCallerPrincipal) sc.getCallerPrincipal();
+            SecurityUser sUser = (SecurityUser) wCallerPrincipal.getWrapped();
+            student = sUser.getStudent();
+            if (student != null && student.getId() == studentId) {
+                response = Response.status(Status.OK).entity(student.getPeerTutorRegistrations()).build();
+            } else {
+                throw new ForbiddenException("User trying to access resource it does not own (wrong userid)");
+            }
+        } else {
+            response = Response.status(Status.BAD_REQUEST).build();
+        }
+        return response;
     }
 }

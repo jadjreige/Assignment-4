@@ -136,6 +136,27 @@ public class ACMECollegeService implements Serializable {
         else return null;  // Student doesn't exists
     }
 
+    @Transactional
+    public PeerTutorRegistration setCourseForStudent(int studentId, Course newCourse) {
+        Student studentToBeUpdated = em.find(Student.class, studentId);
+        if (studentToBeUpdated != null) { // Student exists
+            Course course = em.find(Course.class, newCourse.getId());
+            if (course != null) {
+                PeerTutorRegistration ptr = new PeerTutorRegistration();
+                ptr.setStudent(studentToBeUpdated);
+                ptr.setCourse(course);
+                em.persist(ptr);
+                Set<PeerTutorRegistration> ptrs = studentToBeUpdated.getPeerTutorRegistrations(); 
+                ptrs.add(ptr);
+                em.merge(studentToBeUpdated);
+                studentToBeUpdated.setPeerTutorRegistrations(ptrs);
+                em.merge(course);
+                return ptr;
+            } else return null; // Course doesn't exist
+        }
+        else return null;  // Student doesn't exists
+    }
+
     /**
      * To update a student
      * 
@@ -326,6 +347,7 @@ public class ACMECollegeService implements Serializable {
                 ptr.setPeerTutor(null);
                 ptr.setStudent(null);
                 em.merge(ptr);
+                em.remove(ptr);
             });
             em.remove(course);
             return course;
@@ -367,12 +389,6 @@ public class ACMECollegeService implements Serializable {
             List<PeerTutorRegistration> list = new LinkedList<>();
             ptrs.forEach(list::add);
             list.forEach(ptr -> {
-                if (ptr.getStudent() != null) {
-                    Student student = getStudentById(ptr.getStudent().getId());
-                    Set<PeerTutorRegistration> studentPtrs = student.getPeerTutorRegistrations();
-                    studentPtrs.remove(ptr);
-                }
-                
                 if (ptr.getPeerTutor() != null) {
                     PeerTutor pt = getPeerTutorById(ptr.getPeerTutor().getId());
                     Set<PeerTutorRegistration> peerTutorPtrs = pt.getPeerTutorRegistrations();
@@ -387,4 +403,49 @@ public class ACMECollegeService implements Serializable {
         }
         return null;
     }
+
+    public List<PeerTutorRegistration> getPeerTutorRegistrations() {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<PeerTutorRegistration> cq = cb.createQuery(PeerTutorRegistration.class);
+        cq.select(cq.from(PeerTutorRegistration.class));
+        return em.createQuery(cq).getResultList();
+    }
+
+    public PeerTutorRegistration getPeerTutorRegistrationById(int id) {
+        TypedQuery<PeerTutorRegistration> allPtrQuery = em.createNamedQuery("PeerTutorRegistration.findById", PeerTutorRegistration.class);
+        allPtrQuery.setParameter(PARAM1, id);
+        return allPtrQuery.getSingleResult();
+    }
+
+    @Transactional
+    public PeerTutorRegistration persistPeerTutorRegistration(PeerTutorRegistration newPeerTutorRegistration) {
+        em.persist(newPeerTutorRegistration);
+        return newPeerTutorRegistration;
+    }
+
+    @Transactional
+    public PeerTutorRegistration updatePeerTutorRegistration(int id, PeerTutorRegistration peerTutorRegistrationWithUpdates) {
+        PeerTutorRegistration peerTutorRegistrationToBeUpdated = getPeerTutorRegistrationById(id);
+        if (peerTutorRegistrationToBeUpdated != null) {
+            em.refresh(peerTutorRegistrationToBeUpdated);
+            em.merge(peerTutorRegistrationWithUpdates);
+            em.flush();
+        }
+        return peerTutorRegistrationToBeUpdated;
+    }
+
+    @Transactional
+    public PeerTutorRegistration deletePeerTutorRegistration(int id) {
+        PeerTutorRegistration ptr = getPeerTutorRegistrationById(id);
+        if (ptr != null) {
+            ptr.setPeerTutor(null);
+            ptr.setStudent(null);
+            em.merge(ptr);
+            em.remove(ptr);
+            return ptr;
+        }
+        ;
+        return null;
+    }
 }
+

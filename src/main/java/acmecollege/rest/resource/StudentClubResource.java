@@ -66,6 +66,7 @@ public class StudentClubResource {
     
     @GET
     // TODO SCR01 - Specify the roles allowed for this method
+    @RolesAllowed({ADMIN_ROLE, USER_ROLE})
     @Path("/{studentClubId}")
     public Response getStudentClubById(@PathParam("studentClubId") int studentClubId) {
         LOG.debug("Retrieving student club with id = {}", studentClubId);
@@ -76,6 +77,7 @@ public class StudentClubResource {
 
     @DELETE
     // TODO SCR02 - Specify the roles allowed for this method
+    @RolesAllowed({ADMIN_ROLE})
     @Path("/{studentClubId}")
     public Response deleteStudentClub(@PathParam("studentClubId") int scId) {
         LOG.debug("Deleting student club with id = {}", scId);

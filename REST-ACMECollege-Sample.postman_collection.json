@@ -1,0 +1,1338 @@
+{
+	"info": {
+		"_postman_id": "2c8e9f1d-f65f-44c6-8a71-c2e2610051a3",
+		"name": "REST-ACMECollege-Sample",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32208235"
+	},
+	"item": [
+		{
+			"name": "GET All Students (admin)",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/rest-acmecollege/api/v1/student",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rest-acmecollege",
+						"api",
+						"v1",
+						"student"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET All Students (user)",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "8277",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "cst8277",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/rest-acmecollege/api/v1/student",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rest-acmecollege",
+						"api",
+						"v1",
+						"student"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Student By ID (admin)",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/rest-acmecollege/api/v1/student/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rest-acmecollege",
+						"api",
+						"v1",
+						"student",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Student By ID (user)",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "8277",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "cst8277",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/rest-acmecollege/api/v1/student/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rest-acmecollege",
+						"api",
+						"v1",
+						"student",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST New Student (admin)",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"Michael\",\r\n    \"lastName\": \"Smith\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/rest-acmecollege/api/v1/student",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rest-acmecollege",
+						"api",
+						"v1",
+						"student"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST New Student (user)",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "8277",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "cst8277",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"Michael\",\r\n    \"lastName\": \"Smith\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/rest-acmecollege/api/v1/student",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rest-acmecollege",
+						"api",
+						"v1",
+						"student"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE Student By ID (admin)",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/rest-acmecollege/api/v1/student/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rest-acmecollege",
+						"api",
+						"v1",
+						"student",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE Student By ID (user)",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "8288",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "cst8288",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/rest-acmecollege/api/v1/student/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rest-acmecollege",
+						"api",
+						"v1",
+						"student",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET All Peer Tutors (admin)",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/rest-acmecollege/api/v1/peertutor",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rest-acmecollege",
+						"api",
+						"v1",
+						"peertutor"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET All Peer Tutors (user)",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "8277",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "cst8277",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/rest-acmecollege/api/v1/peertutor",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rest-acmecollege",
+						"api",
+						"v1",
+						"peertutor"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Profesor By ID (admin)",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/rest-acmecollege/api/v1/peertutor/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rest-acmecollege",
+						"api",
+						"v1",
+						"peertutor",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Peer Tutor By ID (user)",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "8277",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "cst8277",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/rest-acmecollege/api/v1/peertutor/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rest-acmecollege",
+						"api",
+						"v1",
+						"peertutor",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST New Peer Tutor (admin)",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"Charles\",\r\n    \"lastName\": \"Xavier\",\r\n    \"program\": \"Physics\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/rest-acmecollege/api/v1/peertutor",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rest-acmecollege",
+						"api",
+						"v1",
+						"peertutor"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST New Peer Tutor (user)",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "8277",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "cst8277",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"Charles\",\r\n    \"lastName\": \"Xavier\",\r\n    \"program\": \"Physics\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/rest-acmecollege/api/v1/peertutor",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rest-acmecollege",
+						"api",
+						"v1",
+						"peertutor"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE Peer Tutor By ID (admin)",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/rest-acmecollege/api/v1/peertutor/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rest-acmecollege",
+						"api",
+						"v1",
+						"peertutor",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE Peer Tutor By ID (user)",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "8277",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "cst8277",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/rest-acmecollege/api/v1/peertutor/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rest-acmecollege",
+						"api",
+						"v1",
+						"peertutor",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET All Courses (admin)",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/rest-acmecollege/api/v1/course",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rest-acmecollege",
+						"api",
+						"v1",
+						"course"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET All Courses (user)",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "8277",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "cst8277",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/rest-acmecollege/api/v1/course",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rest-acmecollege",
+						"api",
+						"v1",
+						"course"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Course By ID (admin)",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/rest-acmecollege/api/v1/course/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rest-acmecollege",
+						"api",
+						"v1",
+						"course",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Course By ID (user)",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "8277",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "cst8277",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/rest-acmecollege/api/v1/course/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rest-acmecollege",
+						"api",
+						"v1",
+						"course",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST New Course (admin)",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"courseCode\": \"CST8101\",\r\n    \"courseTitle\": \"Computer Essentials\",\r\n    \"year\": 2022,\r\n    \"semester\": \"WINTER\",\r\n    \"creditUnits\": 3,\r\n    \"online\": 0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/rest-acmecollege/api/v1/course",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rest-acmecollege",
+						"api",
+						"v1",
+						"course"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST New Course (user)",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "8277",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "cst8277",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"courseCode\": \"CST8101\",\r\n    \"courseTitle\": \"Computer Essentials\",\r\n    \"year\": 2022,\r\n    \"semester\": \"WINTER\",\r\n    \"creditUnits\": 3,\r\n    \"online\": 0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/rest-acmecollege/api/v1/course",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rest-acmecollege",
+						"api",
+						"v1",
+						"course"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE Course By ID (admin)",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/rest-acmecollege/api/v1/course/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rest-acmecollege",
+						"api",
+						"v1",
+						"course",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE Course By ID (user)",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "8277",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "cst8277",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/rest-acmecollege/api/v1/course/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rest-acmecollege",
+						"api",
+						"v1",
+						"course",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET All Student Clubs (admin)",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/rest-acmecollege/api/v1/studentclub",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rest-acmecollege",
+						"api",
+						"v1",
+						"studentclub"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET All Student Clubs (user)",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "8277",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "cst8277",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/rest-acmecollege/api/v1/studentclub",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rest-acmecollege",
+						"api",
+						"v1",
+						"studentclub"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Student Club By ID (admin)",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/rest-acmecollege/api/v1/studentclub/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rest-acmecollege",
+						"api",
+						"v1",
+						"studentclub",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Student Club By ID (user)",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "8277",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "cst8277",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/rest-acmecollege/api/v1/studentclub/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rest-acmecollege",
+						"api",
+						"v1",
+						"studentclub",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST New Student Club (admin)",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"New Student Club\",\r\n    \"entity-type\": \"academic_student_club\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/rest-acmecollege/api/v1/studentclub",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rest-acmecollege",
+						"api",
+						"v1",
+						"studentclub"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST New Student Club (user)",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "8288",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "cst8288",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"New Student Club\",\r\n    \"entity-type\": \"academic_student_club\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/rest-acmecollege/api/v1/studentclub",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rest-acmecollege",
+						"api",
+						"v1",
+						"studentclub"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE Student Club By ID (admin)",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/rest-acmecollege/api/v1/studentclub/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rest-acmecollege",
+						"api",
+						"v1",
+						"studentclub",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE Student Club By ID (user)",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "8288",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "cst8288",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/rest-acmecollege/api/v1/studentclub/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rest-acmecollege",
+						"api",
+						"v1",
+						"studentclub",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Peer Tutor Registrations (admin)",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "GET Peer Tutor Registrations (user)",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "GET Peer Tutor Registration By ID (admin)",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "GET Students Peer Tutor Registrations (admin)",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "GET Students Peer Tutor Registrations (user)",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "PUT Add Course To Student (admin)",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "PUT Add Course To Student (user)",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}

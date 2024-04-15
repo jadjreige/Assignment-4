@@ -1,3 +1,13 @@
+/********************************************************************************************************2*4*w*
+
+ * Created by:  Group 45
+ * @author Noah King
+ * @author Jad Jreige
+ * @author Marwan Badr
+ * @author Jesse Kong
+ *   
+ */
+
 package acmecollege.rest.resource;
 
 

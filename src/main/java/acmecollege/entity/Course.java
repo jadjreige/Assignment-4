@@ -4,11 +4,11 @@
  * @author Teddy Yap
  * @author Shariar (Shawn) Emami
  * 
- * Updated by:  Group NN
- *   studentId, firstName, lastName (as from ACSIS)
- *   studentId, firstName, lastName (as from ACSIS)
- *   studentId, firstName, lastName (as from ACSIS)
- *   studentId, firstName, lastName (as from ACSIS)
+ * Updated by:  Group 45
+ * (Modified) @author Noah King
+ * (Modified) @author Jad Jreige
+ * (Modified) @author Marwan Badr
+ * (Modified) @author Jesse Kong
  * 
  */
 package acmecollege.entity;

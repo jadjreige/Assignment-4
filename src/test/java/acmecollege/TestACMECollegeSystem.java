@@ -107,7 +107,7 @@ public class TestACMECollegeSystem {
         assertThat(response.getStatus(), is(200));
         List<Student> students = response.readEntity(new GenericType<List<Student>>(){});
         assertThat(students, is(not(empty())));
-//        assertThat(students, hasSize(1));
+        assertThat(students, hasSize(1));
     }
     @Test
     @Order(2)

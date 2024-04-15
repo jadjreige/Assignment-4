@@ -28,6 +28,7 @@ import java.util.List;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.Response;
@@ -41,12 +42,15 @@ import org.glassfish.jersey.logging.LoggingFeature;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
+import acmecollege.entity.Course;
+import acmecollege.entity.PeerTutor;
 import acmecollege.entity.Student;
 
 @SuppressWarnings("unused")
@@ -87,6 +91,7 @@ public class TestACMECollegeSystem {
     }
 
     @Test
+    @Order(1)
     public void test01_all_students_with_adminrole() throws JsonMappingException, JsonProcessingException {
         Response response = webTarget
             //.register(userAuth)
@@ -98,5 +103,197 @@ public class TestACMECollegeSystem {
         List<Student> students = response.readEntity(new GenericType<List<Student>>(){});
         assertThat(students, is(not(empty())));
         assertThat(students, hasSize(1));
+    }
+    @Test
+    @Order(2)
+    public void test02_all_courses_with_adminrole() throws JsonMappingException, JsonProcessingException {
+        Response response = webTarget
+            .register(adminAuth)
+            .path(STUDENT_RESOURCE_NAME)
+            .request()
+            .get();
+        assertThat(response.getStatus(), is(200));
+    }
+    
+    @Test
+    @Order(3)
+    public void test03_all_courses_with_userrole() throws JsonMappingException, JsonProcessingException {
+        Response response = webTarget
+            .register(userAuth)
+            .path(STUDENT_RESOURCE_NAME)
+            .request()
+            .get();
+        assertThat(response.getStatus(), is(403)); 
+    }
+
+  @Test
+    @Order(4)
+    public void test04_course_id_admin() throws JsonMappingException, JsonProcessingException {
+        Response response = webTarget
+            .register(adminAuth)
+            .path("course/1")
+            .request()
+            .get();
+        assertThat(response.getStatus(), is(200));
+    }
+    
+    @Test
+    @Order(5)
+    public void test05_course_id_user() throws JsonMappingException, JsonProcessingException {
+        Response response = webTarget
+            .register(userAuth)
+            .path("course/1")
+            .request()
+            .get();
+        assertThat(response.getStatus(), is(403)); 
+    }
+    
+    @Test
+    @Order(6)
+    public void test06_add_course_admin() throws JsonMappingException, JsonProcessingException {
+        Course course = new Course();
+        course.setCourse("CALC", "Vectors", 2024, "WINTER", 2, (byte) 0);
+        
+        Response response = webTarget
+            .register(adminAuth)
+            .path("course")
+            .request()
+            .post(Entity.json(course));
+        assertThat(response.getStatus(), is(200));
+    }
+    
+    @Test
+    @Order(7)
+    public void test07_add_course_user() throws JsonMappingException, JsonProcessingException {
+        Course course = new Course();
+        course.setCourse("CALC", "Vectors", 2024, "WINTER", 2, (byte) 0);
+        
+        Response response = webTarget
+            .register(userAuth)
+            .path("course")
+            .request()
+            .post(Entity.json(course));
+        assertThat(response.getStatus(), is(403)); 
+    }
+    
+    @Test
+    @Order(8)
+    public void test08_delete_course_user() throws JsonMappingException, JsonProcessingException {
+        
+        Response response = webTarget
+            .register(userAuth)
+            .path("course/1")
+            .request()
+            .delete();
+        assertThat(response.getStatus(), is(403)); 
+    }
+    
+    @Test
+    @Order(9)
+    public void test09_delete_course_admin() throws JsonMappingException, JsonProcessingException {
+        
+        Response response = webTarget
+            .register(adminAuth)
+            .path("course/3")
+            .request()
+            .delete();
+        assertThat(response.getStatus(), is(200));
+    }
+    @Test
+    @Order(10)
+    public void test10_all_PeerTutors_with_admin() throws JsonMappingException, JsonProcessingException {
+        Response response = webTarget
+            .register(adminAuth)
+            .path("peertutor")
+            .request()
+            .get();
+        assertThat(response.getStatus(), is(200));
+    }
+    
+    @Test
+    @Order(11)
+    public void test11_all_PeerTutors_with_user() throws JsonMappingException, JsonProcessingException {
+        Response response = webTarget
+            .register(userAuth)
+            .path("peertutor")
+            .request()
+            .get();
+        assertThat(response.getStatus(), is(403));
+    }
+    
+    @Test
+    @Order(12)
+    public void test12_PeerTutor_id_admin() throws JsonMappingException, JsonProcessingException {
+        Response response = webTarget
+            .register(adminAuth)
+            .path("peertutor/1")
+            .request()
+            .get();
+        assertThat(response.getStatus(), is(200));
+    }
+    
+    @Test
+    @Order(13)
+    public void test13_PeerTutor_id_user() throws JsonMappingException, JsonProcessingException {
+        Response response = webTarget
+            .register(userAuth)
+            .path("peertutor/1")
+            .request()
+            .get();
+        assertThat(response.getStatus(), is(403)); 
+    }
+    
+    @Test
+    @Order(14)
+    public void test14_add_PeerTutor_user() throws JsonMappingException, JsonProcessingException {
+        PeerTutor peerTutor = new PeerTutor();
+        peerTutor.setFirstName("Marwan");
+        peerTutor.setLastName("Badr");
+        peerTutor.setProgram("ECON");
+        
+        Response response = webTarget
+            .register(userAuth)
+            .path("peertutor")
+            .request()
+            .post(Entity.json(peerTutor));
+        assertThat(response.getStatus(), is(403)); 
+    }
+    
+    @Test
+    @Order(15)
+    public void test15_add_PeerTutor_admin() throws JsonMappingException, JsonProcessingException {
+        PeerTutor peerTutor = new PeerTutor();
+        peerTutor.setFirstName("Noah");
+        peerTutor.setLastName("King");
+        peerTutor.setProgram("BIO");
+        
+        Response response = webTarget
+            .register(adminAuth)
+            .path("peertutor")
+            .request()
+            .post(Entity.json(peerTutor));
+        assertThat(response.getStatus(), is(200));
+    }
+    
+    @Test
+    @Order(16)
+    public void test16_delete_PeerTutor_admin() throws JsonMappingException, JsonProcessingException {
+        Response response = webTarget
+            .register(adminAuth)
+            .path("peertutor/2")
+            .request()
+            .delete();
+        assertThat(response.getStatus(), is(200));
+    }
+    
+    @Test
+    @Order(17)
+    public void test17_delete_PeerTutor_user() throws JsonMappingException, JsonProcessingException {
+        Response response = webTarget
+            .register(userAuth)
+            .path("peertutor/1")
+            .request()
+            .delete();
+        assertThat(response.getStatus(), is(403)); 
     }
 }
